@@ -1,66 +1,123 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Jak spustit aplikaci
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Kroky instalace a spuštění
 
-## About Laravel
+1. **Naklonovat si appku**
+    - Použijte `git clone <URL_REPOZITÁŘE>` pro stažení aplikace do lokálního počítače.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+2. **Dostat se do repozitáře `/recepty`**
+    - Přesuňte se do složky pomocí `cd recepty`.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+3. **Nainstalovat PHP**
+    - Stáhněte si PHP z: [windows.php.net/download/](https://windows.php.net/download/).
+    - Ověřte funkčnost v konzoli příkazem:
+      ```bash
+      php -v
+      ```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+4. **Nainstalovat Node.js**
+    - Stáhněte si Node.js z: [nodejs.org/en](https://nodejs.org/en).
+    - Ověřte funkčnost v konzoli příkazem:
+      ```bash
+      node -v
+      ```
 
-## Learning Laravel
+5. **Nainstalovat Composer**
+    - Stáhněte Composer z: [getcomposer.org/download/](https://getcomposer.org/download/).
+    - Composer funguje pouze pokud máte funkční PHP.
+    - Ověřte funkčnost v konzoli příkazem:
+      ```bash
+      composer -v
+      ```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+6. **Nainstalovat MySQL**
+    - Stáhněte MySQL z: [dev.mysql.com/downloads/installer/](https://dev.mysql.com/downloads/installer/).
+    - Ověřte funkčnost v konzoli příkazem:
+      ```bash
+      mysql -v
+      ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+7. **Spustit databázi**
+    - Otevřete konzoli a spusťte příkazy:
+      ```bash
+      net stop MySQL
+      net start MySQL
+      mysql -u root -p
+      ```
+    - Heslo pro přístup najdete v souboru `.env`.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+8. **Spustit backend (Laravel)**
+    - Spusťte následující příkazy v konzoli:
+      ```bash
+      composer install
+      php artisan migrate
+      php artisan db:seed
+      php artisan serve
+      ```
 
-## Laravel Sponsors
+9. **Spustit frontend (Tailwind CSS)**
+    - Spusťte následující příkazy v konzoli:
+      ```bash
+      npm install
+      npm run dev
+      ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+10. **Otevřít aplikaci v prohlížeči**
+    - Zadejte adresu: [http://127.0.0.1:8000](http://127.0.0.1:8000) nebo [http://localhost:8000](http://localhost:8000).
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Kde se nachází naimplementované funkcionality
 
-## Contributing
+### **Práva**
+- **Soubory**: `Policies/RecipePolicy` a `Providers/AuthServiceProvider`.
+- **Popis**:
+    - V `AuthServiceProvider` je model `Recipe` mapován na `RecipePolicy`.
+    - `RecipePolicy` definuje pravidla pro úpravy a mazání receptů pouze pro jejich vlastníka (`user_id`).
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### **Migrace**
+- **Složka**: `database/migrations`.
+- **Popis**:
+    - Obsahuje definice tabulek pro databázi (např. `recipes`, `allergens`, `categories`).
+    - Migrace tvoří strukturu databáze, nikoli data.
 
-## Code of Conduct
+### **Seedery**
+- **Složka**: `database/seeders`.
+- **Popis**:
+    - Slouží k naplnění databáze výchozími daty (např. kategorie, recepty, uživatelé).
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### **Modely**
+- **Složka**: `App\Models`.
+- **Popis**:
+    - Třídy, které reprezentují tabulky v databázi. Obsahují i relace (např. `N:1`, `N:N`).
+    - Model `Recipe` zahrnuje např. název, popis, obrázek, kategorii, ingredience, atd.
 
-## Security Vulnerabilities
+### **Obrázky**
+- **Složka**: `public/storage`.
+- **Popis**:
+    - Obrázky receptů se ukládají do složky `public/storage/recipes_images`.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### **Kontrolery**
+- **Složka**: `App\Http\Controllers`.
+- **Popis**:
+    - Obsahují metody pro zpracování požadavků uživatelů (např. vytvoření, úprava, mazání receptů).
 
-## License
+### **CSS (Tailwind)**
+- **Složka**: `resources/css`.
+- **Popis**:
+    - Obsahuje styly vytvořené pomocí frameworku **Tailwind CSS**, který poskytuje předdefinované třídy i jen obyč CSS.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### **Blade šablony**
+- **Složka**: `resources/views`.
+- **Popis**:
+    - Obsahuje šablony pro zobrazení (např. receptů, kategorií) s využitím syntaxe Blade. Je to dost podobné HTML, ale s možností vkládat PHP kód.
+
+### **Webové routy**
+- **Soubor**: `routes/web.php`.
+- **Popis**:
+    - Definuje URL adresy pro zobrazení a práci s aplikací (např. přidání receptu, editace, zobrazení kategorie).
+
+### **API routy**
+- **Soubor**: `routes/api.php`.
+- **Popis**:
+    - Obsahuje routy určené pro API, které vrací data ve formátu JSON (např. vyhledávání receptů).
