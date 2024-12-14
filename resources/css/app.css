@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html{
+    background-image: url('../../public/storage/bg.jpg');
+}
+
+.custom-bg{
+    background-image: url('../../public/storage/bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+}
+.login-page, .register-page {
+    background-color: #000;
+}
+
+select[multiple] {
+    height: auto;
+    padding-right: 30px;
+    background-image: none;
+}
+
+select[multiple] option {
+    display: block;
+    padding: 10px;
+    cursor: pointer;
+}
+
+select[multiple] option:checked {
+    background-color: #fcd34d;
+    color: black;
+}
+
+select[multiple] option:checked::before {
+    content: "✓ ";
+    color: green;
+}
+
+select[multiple]:focus {
+    border: 2px solid #fcd34d;
+}
